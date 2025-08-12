@@ -2,12 +2,12 @@
 
 Forum::Forum() : lastPostId(0) {}
 
-void Forum::addPost(const std::string& content, const std::string& author, int parentId, const std::string& quotedContent) {
+void Forum::addPost(const string& content, const string& author, int parentId, const string& quotedContent) {
     lastPostId++;
     Post newPost(lastPostId, content, author, parentId, quotedContent);
-    posts[lastPostId] = newPost;
+    posts[lastPostId] = newPost;//Add the post to the posts map and the key is the id
 
-    if (parentId != 0 && posts.count(parentId)) {
+    if (parentId != 0) {
         posts[parentId].addReply(newPost);
     }
 }
@@ -15,35 +15,28 @@ void Forum::addPost(const std::string& content, const std::string& author, int p
 int Forum::getLastPostId() const {
     return lastPostId;
 }
-
-Post Forum::getPostById(int postId) const {
-    if (posts.find(postId) == posts.end()) {
-        throw std::out_of_range("Post ID not found.");
-    }
-    return posts.at(postId);
-}
-
-void Forum::displayPostChain(int postId) const {
-    if (posts.find(postId) == posts.end()) {
-        throw std::out_of_range("Post ID not found.");
-    }
-
-    std::stack<Post> chain;
+//Display post with its replies
+void Forum::displayPostChain(int postId) {
+    stack<Post> postChain;
     int currentId = postId;
 
     while (currentId != 0) {
-        chain.push(posts.at(currentId));
+        postChain.push(posts.at(currentId));
         currentId = posts.at(currentId).getParentId();
     }
 
-    while (!chain.empty()) {
-        std::cout << chain.top();
-        chain.pop();
+    while (!postChain.empty()) {
+        cout << postChain.top();
+        postChain.pop();
     }
 }
 
+Post Forum::getPostById(int postId) {
+    return posts.at(postId);
+}
+//Display all forum
 void Forum::displayForum() const {
-    for (const auto& [id, post] : posts) {
-        post.display(std::cout);
+    for (const auto& postEntry : posts) {
+        postEntry.second.display(cout);
     }
 }
