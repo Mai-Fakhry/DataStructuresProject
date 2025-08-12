@@ -5,33 +5,33 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 class Post {
 private:
     int id;
-    std::string content;
-    std::string author;
-    int parentId;
-    std::string quotedContent;
-    std::vector<Post> replies;
+    int parentId;  // ID of the parent post 
+    string content;
+    string author;
+    vector<Post> replies;  // All replies to this post
+    string quotedContent;  // Stores quoted content 
 
 public:
-    Post();  // Default constructor
-    Post(int id, const std::string& content, const std::string& author, int parentId, const std::string& quotedContent = "");
+    Post();
+    Post(int id, const string& content, const string& author, int parentId, const string& quotedContent = "");
 
-    // Getters
-    int getId() const;
-    std::string getContent() const;
-    std::string getAuthor() const;
-    std::string getQuotedContent() const;
-    int getParentId() const;
+    string getContent() const;
+    string getAuthor() const;
+    string getQuotedContent() const;
 
-    // Methods
     bool addReply(const Post& reply);
-    void display(std::ostream& out, int depth = 0) const;
+    int getParentId() const;
+    int getId() const;
 
-    // Friend functions
-    friend std::ostream& operator<<(std::ostream& out, const Post& post);
-    friend std::istream& operator>>(std::istream& in, Post& post);
+    void display(ostream& out, int depth = 0) const;
+
+    friend ostream& operator<<(ostream& out, const Post& post);
+    friend istream& operator>>(istream& in, Post& post);
 };
 
 #endif
