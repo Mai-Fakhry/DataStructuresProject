@@ -1,29 +1,32 @@
 #include "User.hpp"
-#include <stdexcept>
 
 User::User() : name("") {}
 
-User::User(const std::string& name) : name(name) {}
+User::User(string name) : name(name) {}
 
-std::string User::getName() const {
+string User::getName() const {
     return name;
 }
 
-void User::addPost(Forum& forum, const std::string& content, int parentId) {
-    std::string quotedContent = "";
-
+// Add a post to the forum
+void User::addPost(Forum& forum, const string& content, int parentId) {
+    string quotedContent = "";
+    
     if (parentId != 0) {
-        try {
-            Post parentPost = forum.getPostById(parentId);
-            quotedContent = parentPost.getContent();
-        } catch (const std::out_of_range&) {
-            throw std::invalid_argument("Parent post not found.");
-        }
+        Post parentPost = forum.getPostById(parentId);
+        quotedContent = parentPost.getContent();  // Get the content of the post being replied to
     }
-
+    
     forum.addPost(content, name, parentId, quotedContent);
 }
 
-void User::displayPostChain(const Forum& forum, int postId) const {
+// Display a post chain 
+void User::displayPostChain(Forum& forum, int postId) {
     forum.displayPostChain(postId);
+}
+
+// Display a specific post
+void User::displayPost(Forum& forum, int postId) {
+    Post post = forum.getPostById(postId);
+    cout << post.getAuthor() << ": " << post.getContent() << endl;
 }
