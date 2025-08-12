@@ -1,20 +1,22 @@
 #ifndef USER_HPP
 #define USER_HPP
 
-#include "Forum.hpp"
 #include <string>
+#include "Forum.hpp"
+
+using namespace std;
 
 class User {
 private:
-    std::string name;
+    string name;
 
 public:
     User();
-    User(const std::string& name);
-
-    std::string getName() const;
-    void addPost(Forum& forum, const std::string& content, int parentId = 0);
-    void displayPostChain(const Forum& forum, int postId) const;
+    User(string name);
+    string getName() const;
+    void addPost(Forum& forum, const string& content, int parentId = 0);
+    void displayPostChain(Forum& forum, int postId);
+    void displayPost(Forum& forum, int postId);
 };
 
 #endif
