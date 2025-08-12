@@ -1,25 +1,24 @@
 #ifndef FORUM_HPP
 #define FORUM_HPP
 
-#include "Post.hpp" // Make sure the Post class is defined elsewhere
+#include <iostream>
 #include <map>
 #include <stack>
-#include <iostream>
-#include <stdexcept>
+#include "Post.hpp"
+
+using namespace std;
 
 class Forum {
 private:
-    std::map<int, Post> posts;
+    map<int, Post> posts;
     int lastPostId;
 
 public:
-    Forum(); // Constructor
-
-    // Methods for adding posts, getting posts, displaying post chain, and displaying the forum
-    void addPost(const std::string& content, const std::string& author, int parentId = 0, const std::string& quotedContent = "");
+    Forum();
+    void addPost(const string& content, const string& author, int parentId = 0, const string& quotedContent = "");
     int getLastPostId() const;
-    Post getPostById(int postId) const;
-    void displayPostChain(int postId) const;
+    void displayPostChain(int postId);
+    Post getPostById(int postId);
     void displayForum() const;
 };
 
