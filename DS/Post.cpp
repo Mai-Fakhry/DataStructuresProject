@@ -1,23 +1,24 @@
 #include "Post.hpp"
-#include <iostream>
+
 
 Post::Post() : id(0), parentId(0), quotedContent("") {}
 
-Post::Post(int id, const std::string& content, const std::string& author, int parentId, const std::string& quotedContent)
+Post::Post(int id, const string& content, const string& author, int parentId, const string& quotedContent)
     : id(id), content(content), author(author), parentId(parentId), quotedContent(quotedContent) {}
 
-std::string Post::getContent() const {
+string Post::getContent() const {
     return content;
 }
 
-std::string Post::getAuthor() const {
+string Post::getAuthor() const {
     return author;
 }
 
-std::string Post::getQuotedContent() const {
+string Post::getQuotedContent() const {
     return quotedContent;
 }
 
+// Add a reply to the current post
 bool Post::addReply(const Post& reply) {
     if (reply.id == this->id) {
         return false; // A post cannot reply to itself
@@ -34,33 +35,35 @@ int Post::getId() const {
     return id;
 }
 
-void Post::display(std::ostream& out, int depth) const {
-    for (int i = 0; i < depth; i++) out << "  "; // Indentation
+// Display post details, including quoted content
+void Post::display(ostream& out, int depth) const {
+    for (int i = 0; i < depth; i++) out << "  "; 
     out << "Post ID: " << id << " | Author: " << author << "\n";
 
     if (!quotedContent.empty()) {
-        for (int i = 0; i < depth; i++) out << "  "; // Indentation
+        for (int i = 0; i < depth; i++) out << "  "; 
         out << "Quoted: " << quotedContent << "\n";
     }
 
-    for (int i = 0; i < depth; i++) out << "  "; // Indentation
+    for (int i = 0; i < depth; i++) out << "  "; 
     out << "Content: " << content << "\n";
 
+    // Recursively display replies
     for (const auto& reply : replies) {
         reply.display(out, depth + 1);
     }
     out << "\n";
 }
 
-std::ostream& operator<<(std::ostream& out, const Post& post) {
+ostream& operator<<(ostream& out, const Post& post) {
     post.display(out);
     return out;
 }
 
-std::istream& operator>>(std::istream& in, Post& post) {
-    std::cout << "Enter post content: ";
-    std::getline(in, post.content);
-    std::cout << "Enter post author: ";
-    std::getline(in, post.author);
+istream& operator>>(istream& in, Post& post) {
+    cout << "Enter post content: ";
+    getline(in, post.content);
+    cout << "Enter post author: ";
+    getline(in, post.author);
     return in;
 }
