@@ -1,10 +1,11 @@
 #include <iostream>
+#include <vector>
 #include <map>
 #include <string>
+#include <stack>
 #include "Post.hpp"
 #include "Forum.hpp"
 #include "User.hpp"
-#include "MyVector.hpp"  
 #include "Post.cpp"
 #include "Forum.cpp"
 #include "User.cpp"
@@ -13,7 +14,7 @@ using namespace std;
 
 int main() {
     Forum forum;
-    MyVector<User> users;
+    vector<User> users;
     int choice;
 
     do {
@@ -40,7 +41,7 @@ int main() {
             }
 
             case 2: {
-                if (users.isEmpty()) {
+                if (users.empty()) {
                     cout << "No users registered.\n";
                     break;
                 }
@@ -50,9 +51,9 @@ int main() {
                 getline(cin, userName);
                 
                 User* user = nullptr;
-                for (size_t i = 0; i < users.getSize(); ++i) {
-                    if (users.at(i).getName() == userName) {
-                        user = &users.at(i);
+                for (auto& u : users) {
+                    if (u.getName() == userName) {
+                        user = &u;
                         break;
                     }
                 }
@@ -71,7 +72,7 @@ int main() {
             }
 
             case 3: {
-                if (users.isEmpty()) {
+                if (users.empty()) {
                     cout << "No users registered.\n";
                     break;
                 }
@@ -81,9 +82,9 @@ int main() {
                 getline(cin, userName);
                 
                 User* user = nullptr;
-                for (size_t i = 0; i < users.getSize(); ++i) {
-                    if (users.at(i).getName() == userName) {
-                        user = &users.at(i);
+                for (auto& u : users) {
+                    if (u.getName() == userName) {
+                        user = &u;
                         break;
                     }
                 }
@@ -108,7 +109,7 @@ int main() {
             }
 
             case 4: {
-                if (users.isEmpty()) {
+                if (users.empty()) {
                     cout << "No users registered.\n";
                     break;
                 }
@@ -118,9 +119,9 @@ int main() {
                 getline(cin, userName);
 
                 User* user = nullptr;
-                for (size_t i = 0; i < users.getSize(); ++i) {
-                    if (users.at(i).getName() == userName) {
-                        user = &users.at(i);
+                for (auto& u : users) {
+                    if (u.getName() == userName) {
+                        user = &u;
                         break;
                     }
                 }
@@ -146,7 +147,7 @@ int main() {
             }
 
             case 5: {
-                if (users.isEmpty()) {
+                if (users.empty()) {
                     cout << "No users registered.\n";
                     break;
                 }
@@ -156,9 +157,9 @@ int main() {
                 getline(cin, userName);
 
                 User* user = nullptr;
-                for (size_t i = 0; i < users.getSize(); ++i) {
-                    if (users.at(i).getName() == userName) {
-                        user = &users.at(i);
+                for (auto& u : users) {
+                    if (u.getName() == userName) {
+                        user = &u;
                         break;
                     }
                 }
